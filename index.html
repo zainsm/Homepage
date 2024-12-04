@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  body {
+    margin: 0;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    background-color: #ffffff;
+  }
+
+  /* Navigation Bar*/
+  .topnavigationbar {
+    overflow: hidden;
+    background-color: #0C0B13;
+  }
+
+  .topnavigationbar a {
+    float: left;
+    color: #664EAE;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+  }
+
+  .topnavigationbar a:hover {
+    background-color: #ffffff;
+    color: #664EAE;
+  }
+
+  .topnavigationbar a.split {
+    float: right;
+    background-color: #664EAE;
+    color: #0C0B13;
+  }
+
+  /* Main content layout */
+ .container {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px auto;
+    max-width: 1200px;
+  }
+
+ /* Left content section */
+ .left-column {
+    width: 68%;
+    background-color: #0C0B13;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+
+/* Left Colum Title */
+  .Welcome {
+    font-size: 36px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #664EAE;
+  }
+
+/* Introduction Paragraph */
+  .Introduction {
+    color: #664EAE;
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
+/* Related Image */
+  .QuizImage {
+    text-align: left;
+  }
+
+/* Sizing */
+  .QuizImage img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+    border-radius: 8px;
+  }
+
+/* Right content section */
+  .right-column {
+    width: 28%;
+    background-color: #0C0B13;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+
+/* Right Colum Title */
+  .right-column h3 {
+    font-size: 24px;
+    color: #664EAE;
+    margin-bottom: 20px;
+  }
+
+/* Quiz Boxes */
+  .related-quiz {
+    background-color: #ffffff;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  }
+
+/* Quiz Related Images */
+  .related-quiz img {
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+  }
+
+/* Linke Text */
+  .related-quiz h4 {
+    margin: 10px 0;
+    font-size: 18px;
+    color: #664EAE;
+  }
+
+  /* Sign Up / Sign In Styles */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    justify-content: center;
+    align-items: center;
+  }
+
+  .modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+  }
+
+  .modal-header {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: center;
+    color: #664EAE;
+  }
+
+  .modal-body input {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    display: block;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+
+  .modal-footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .modal-footer button {
+    padding: 10px 20px;
+    background-color: #664EAE;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  .modal-footer button:hover {
+    background-color: #50398c;
+  }
+
+  .redirect-link {
+    color: #664EAE;
+    text-decoration: none;
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .redirect-link:hover {
+    text-decoration: underline;
+  }
+
+  .message-modal {
+    display: none;
+    position: fixed;
+    z-index: 2;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border: 2px solid #664EAE;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    text-align: center;
+  }
+
+  .message-modal button {
+    margin-top: 15px;
+    padding: 10px 15px;
+    background-color: #664EAE;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+    display: block;
+  }
+
+ /* After Sign in Drop Down Menu*/   
+  #dropdownMenu {
+    position: absolute;
+    right: 16px;
+    top: 50px;
+    background-color: #0C0B13;
+    color: #664EAE;
+    border: 1px solid #664EAE;
+    display: none;
+    flex-direction: column;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  }
+
+  #dropdownMenu a {
+    text-decoration: none;
+    color: #664EAE;
+    padding: 5px 10px;
+  }
+
+  #dropdownMenu a:hover {
+    background-color: #50398c;
+    color: white;
+  }
+  
+  /* Footer */
+  .BottomPage {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #0C0B13;
+    color: #664EAE;
+    text-align: center;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 17px;
+  }
+
+  /* Responsive adjustments */
+ @media screen and (max-width: 768px) {
+    .container {
+      flex-direction: column;
+    }
+
+    .left-column, .right-column {
+      width: 100%;
+      margin-bottom: 20px;
+    }
+
+    .Welcome {
+      font-size: 30px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<div class="topnavigationbar">
+  <a class="active" href="Homepage.html">Home</a>
+  <a href="QuizPage.html">Quiz's</a>
+  <a href="#" class="split" id="signupBtn">Sign Up</a>
+  <a href="#" class="split" id="userMenu" style="display: none;">
+    <span id="usernameDisplay"></span>
+  </a>
+  <div id="dropdownMenu">
+    <a href="#" onclick="showAccountInfo()">Account</a>
+    <a href="#" onclick="signOut()">Sign Out</a>
+  </div>
+</div>
+
+<!-- Main Container -->
+<div class="container">
+  <!-- Left Column (Main Content) -->
+  <div class="left-column">
+    <div class="Welcome">
+      Welcome to my Quiz!
+    </div>
+
+    <div class="Introduction">
+      Welcome to my quiz hub, where fun meets learning! Whether you're here to test your trivia knowledge, discover something new, or just have a good time, we've got a variety of quizzes for everyone. This site is part of my Computing Foundation module project, where I'm combining creativity and coding to bring interactive, enjoyable experiences right to your screen. Dive in, explore, and enjoy the quizzes while helping me on my learning journey!
+    </div>
+
+    <div class="QuizImage">
+      <img src="https://t4.ftcdn.net/jpg/04/09/73/85/240_F_409738530_TyDK4N4h4X2s4FT1P61tAqx82AYI8dnS.jpg" alt="Quiz Image">
+    </div>
+  </div>
+
+  <!-- Right Column (Related Content) -->
+  <div class="right-column">
+    <h3>Related Quizzes:</h3>
+
+    <div class="related-quiz">
+      <a href="trivia-quiz.html">
+        <img src="https://static1.colliderimages.com/wordpress/wp-content/uploads/2021/05/Harry-Potter-Movies-in-Order.jpg?q=70&fit=crop&w=1140&h=&dpr=1" alt="Quiz 1">
+        <h4>Harry Potter Quiz</h4>
+      </a>
+      <p>Are you a Wizard?</p>
+    </div>
+
+    <div class="related-quiz">
+      <a href="personality-quiz.html">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Marvel_Studios_logo.svg/1024px-Marvel_Studios_logo.svg.png" alt="Quiz 2">
+        <h4>Marvel Quiz</h4>
+      </a>
+      <p>Which Marvel Character is your Favourite? </p>
+    </div>
+
+    <div class="related-quiz">
+      <a href="pop-culture-quiz.html">
+        <img src="https://static.vecteezy.com/system/resources/thumbnails/012/657/549/small/illustration-negative-film-reel-roll-tapes-for-movie-cinema-video-logo-vector.jpg" alt="Quiz 3">
+        <h4>Movies</h4>
+      </a>
+      <p>Can you name these Movies?</p>
+    </div>
+  </div>
+</div>
+
+<!-- Sign In/Sing Up Models -->
+<div id="signupModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">Sign Up</div>
+    <div class="modal-body">
+      <label for="signup-username">Username</label>
+      <input type="text" id="signup-username" placeholder="Enter your username">
+      <span id="signup-username-error" class="error-message"></span>
+      <label for="signup-password">Password</label>
+      <input type="password" id="signup-password" placeholder="Enter your password">
+      <span id="signup-password-error" class="error-message"></span>
+      <label for="confirm-password">Confirm Password</label>
+      <input type="password" id="confirm-password" placeholder="Confirm your password">
+      <span id="confirm-password-error" class="error-message"></span>
+    </div>
+    <div class="modal-footer">
+      <button onclick="handleSignUp()">Sign Up</button>
+      <a href="#" class="redirect-link" onclick="showSignIn()">Already have an account? Sign In</a>
+    </div>
+  </div>
+</div>
+
+<div id="signinModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">Sign In</div>
+    <div class="modal-body">
+      <label for="signin-username">Username</label>
+      <input type="text" id="signin-username" placeholder="Enter your username">
+      <span id="signin-username-error" class="error-message"></span>
+      <label for="signin-password">Password</label>
+      <input type="password" id="signin-password" placeholder="Enter your password">
+      <span id="signin-password-error" class="error-message"></span>
+    </div>
+    <div class="modal-footer">
+      <button onclick="handleSignIn()">Sign In</button>
+      <a href="#" class="redirect-link" onclick="showSignUp()">Don't have an account? Sign Up</a>
+    </div>
+  </div>
+</div>
+
+<!-- Account Modal -->
+<div id="accountModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">Account Information</div>
+    <div class="modal-body">
+      <p><strong>Username:</strong> <span id="accountUsername"></span></p>
+      <p><strong>Password:</strong></p>
+      <input type="password" id="accountPassword" readonly>
+    </div>
+    <div class="modal-footer">
+      <button onclick="closeModal('accountModal')">Close</button>
+    </div>
+  </div>
+</div>
+
+<div id="messageModal" class="message-modal">
+  <div id="messageText"></div>
+  <button id="messageOkButton" onclick="closeMessage()" style="display: none;">OK</button>
+</div>
+
+<!-- Bottom footer -->
+<div class="BottomPage">
+  <p style="color: #664EAE;">A Zain Project</p>
+</div>
+
+<!-- Java Code for Sign Up/Sign In Functions -->
+<script>
+  const signupModal = document.getElementById('signupModal');
+  const signinModal = document.getElementById('signinModal');
+  const messageModal = document.getElementById('messageModal');
+  const messageText = document.getElementById('messageText');
+  const messageOkButton = document.getElementById('messageOkButton');
+
+  document.getElementById('signupBtn').onclick = () => {
+    signupModal.style.display = 'flex';
+  };
+
+  function closeModal(modalId) {
+    document.getElementById(modalId).style.display = 'none';
+  }
+
+  function closeMessage() {
+    messageModal.style.display = 'none';
+  }
+
+  function showSignIn() {
+    closeModal('signupModal');
+    signinModal.style.display = 'flex';
+  }
+
+  function showSignUp() {
+    closeModal('signinModal');
+    signupModal.style.display = 'flex';
+  }
+
+  function handleSignUp() {
+    const username = document.getElementById('signup-username').value.trim();
+    const password = document.getElementById('signup-password').value;
+    const confirmPassword = document.getElementById('confirm-password').value;
+
+    const usernameError = document.getElementById('signup-username-error');
+    const passwordError = document.getElementById('signup-password-error');
+    const confirmPasswordError = document.getElementById('confirm-password-error');
+
+    let isValid = true;
+
+    usernameError.textContent = '';
+    passwordError.textContent = '';
+    confirmPasswordError.textContent = '';
+
+    if (!username) {
+      usernameError.textContent = 'Username is required.';
+      isValid = false;
+    }
+
+    if (!password) {
+      passwordError.textContent = 'Password is required.';
+      isValid = false;
+    } else if (password.length < 6) {
+      passwordError.textContent = 'Password must be at least 6 characters.';
+      isValid = false;
+    }
+
+    if (!confirmPassword) {
+      confirmPasswordError.textContent = 'Please confirm your password.';
+      isValid = false;
+    } else if (confirmPassword !== password) {
+      confirmPasswordError.textContent = 'Passwords do not match.';
+      isValid = false;
+    }
+
+    if (isValid) {
+      localStorage.setItem('username', username);
+      localStorage.setItem('password', password);
+      closeModal('signupModal');
+      messageText.textContent = 'You are now signed up! Please sign in.';
+      messageModal.style.display = 'block';
+      messageOkButton.style.display = 'inline-block';
+      messageOkButton.onclick = () => {
+        messageModal.style.display = 'none';
+        signinModal.style.display = 'flex';
+      };
+    }
+  }
+
+  function handleSignIn() {
+    const username = document.getElementById('signin-username').value.trim();
+    const password = document.getElementById('signin-password').value;
+
+    const usernameError = document.getElementById('signin-username-error');
+    const passwordError = document.getElementById('signin-password-error');
+
+    let isValid = true;
+
+    usernameError.textContent = '';
+    passwordError.textContent = '';
+
+    if (!username) {
+      usernameError.textContent = 'Username is required.';
+      isValid = false;
+    }
+
+    if (!password) {
+      passwordError.textContent = 'Password is required.';
+      isValid = false;
+    }
+
+    if (isValid) {
+      const storedUsername = localStorage.getItem('username');
+      const storedPassword = localStorage.getItem('password');
+
+      if (username === storedUsername && password === storedPassword) {
+        closeModal('signinModal');
+        updateNavigation(username);
+        messageText.textContent = `Welcome, ${username}!`;
+        messageModal.style.display = 'block';
+        messageOkButton.style.display = 'none';
+        setTimeout(() => {
+          messageModal.style.display = 'none';
+        }, 2000);
+      } else {
+        messageText.textContent = 'Incorrect username or password!';
+        messageModal.style.display = 'block';
+        messageOkButton.style.display = 'none';
+        setTimeout(() => {
+          messageModal.style.display = 'none';
+        }, 2000);
+      }
+    }
+  }
+
+  function updateNavigation(username) {
+    const signupBtn = document.getElementById('signupBtn');
+    const userMenu = document.getElementById('userMenu');
+    const usernameDisplay = document.getElementById('usernameDisplay');
+    const dropdownMenu = document.getElementById('dropdownMenu');
+
+    signupBtn.style.display = 'none';
+    userMenu.style.display = 'inline-block';
+    usernameDisplay.textContent = username;
+
+    userMenu.onclick = () => {
+      dropdownMenu.style.display = dropdownMenu.style.display === 'flex' ? 'none' : 'flex';
+    };
+
+    window.onclick = (event) => {
+      if (!userMenu.contains(event.target)) {
+        dropdownMenu.style.display = 'none';
+      }
+    };
+  }
+
+  function showAccountInfo() {
+    const username = localStorage.getItem('username');
+    const password = localStorage.getItem('password');
+
+    document.getElementById('accountUsername').textContent = username;
+    document.getElementById('accountPassword').value = password;
+
+    document.getElementById('accountModal').style.display = 'flex';
+  }
+
+  function signOut() {
+    document.getElementById('signupBtn').style.display = 'inline-block';
+    document.getElementById('userMenu').style.display = 'none';
+    document.getElementById('dropdownMenu').style.display = 'none';
+
+    messageText.textContent = 'You have signed out.';
+    messageModal.style.display = 'block';
+    messageOkButton.style.display = 'none';
+
+    setTimeout(() => {
+      messageModal.style.display = 'none';
+    }, 2000);
+  }
+</script>
+
+</body>
+</html>
